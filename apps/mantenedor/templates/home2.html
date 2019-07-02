@@ -1,0 +1,134 @@
+<!-- templates/home.html-->
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}Home{% endblock %}
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+  <title>MoneyBuddy</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" />
+  <link rel="stylesheet" href="{% static 'js/material-photo-gallery-master/dist/css/material-photo-gallery.css' %}" />
+</head>
+<body>
+  <div class="home-nav">
+    <div class="home-nav-header">
+      <div class="home-nav-title">
+        <a href="/">
+        Hostal Doña Clarita
+      </a>
+      </div>
+    </div>
+    <div class="home-nav-links">
+      <a href="#top">home</a>
+      <a href="#queofrecemos">qué ofrecemos</a>
+      <a href="#testimonies">testimonios</a>
+      {% if not request.user.is_authenticated %}
+        <a href="{% url 'login' %}">login</a>
+      {% else %}
+
+        <a href="#">mi cuenta</a>
+        <a href="{% url 'logout' %}">logout</a>
+      {% endif %}
+
+    </div>
+  </div>
+  <header class="home-header" id="home">
+    <div class="welcome">
+      Ofrecemos servicios de hostelería para tu empresa.
+      
+    </div>
+  </header>
+  <br>
+<h1 id="queofrecemos">¿Qué ofrecemos?</h1>
+  <div class="features" >
+    <div class="feature"><p>
+      <img src="{% static 'img/icon_bed.png' %}" class="icon">
+      Alojamiento con diversas opciones de habitaciones para los huéspedes
+    </div>
+      <div class="feature"><p>
+      <img src="{% static 'img/icon_computer.png' %}" class="icon">
+        Reserva y consulta el estado de tu orden de compra en cualquier momento
+      </p></div>
+    <div class="feature">
+      <p>
+        <img src="{% static 'img/icon_employee.png' %}" class="icon">
+        Servicio al cliente de calidad
+      </p>
+    </div>
+  </div>
+  <h1 class="margin-heading">Nuestros espacios</h1>
+  <div class="m-p-g">
+
+  <div class="m-p-g__thumbs" data-google-image-layout data-max-height="450" data-max-width="300">
+      <img src="{% static 'img/pic1.jpg' %}" data-full="{% static 'img/pic1.jpg' %}" class="m-p-g__thumbs-img">
+      <img src="{% static 'img/pic2.jpg' %}" data-full="{% static 'img/pic2.jpg' %}" class="m-p-g__thumbs-img">
+      <img src="{% static 'img/pic3.jpg' %}" data-full="{% static 'img/pic3.jpg' %}" class="m-p-g__thumbs-img" data-width=200>
+      <img src="{% static 'img/pic4.jpg' %}" data-full="{% static 'img/pic4.jpg' %}" class="m-p-g__thumbs-img">
+  </div>
+  <div class="m-p-g__fullscreen"></div>
+  {% if user.is_authenticated %}
+    Bienvenido {{ user.username }}!
+
+  {% else %}
+
+
+  {% endif %}
+
+</div>
+  <!--
+<h1 id="testimonies">Testimonios</h1>
+  <div class="testimonios">
+    <div class="testimonio">
+      <div class="textbox">
+        "Gracias a MoneyBuddy he podido alojar a un equipo de mi microempresa, permitiéndome así no sólo contar con hospedaje, sino que también puedo consultar en cualquier momento mi orden de compra"
+      </div>
+    <p class="person"><img src="{% static 'img/girl1.jpg' %}" class="person-pic">Gabriela, 28 años</p>
+    </div>
+      <div class="testimonio">
+          <div class="textbox">
+        "Uso MoneyBuddy a diario para mi microempresa y para mis gastos personales. Es increíble lo mucho que ha mejorado mi gestión de capital desde que empecé a usar este servicio"
+          </div>
+      <p class="person">
+        <img src="{% static 'img/girl2.jpg' %}" class="person-pic">
+        María Jesús, 31 años
+      </p>
+      </div>
+    <div class="testimonio">
+      <div class="textbox">
+        "Estaba buscando una aplicación que me ayudara con la gestión de los gastos del hogar y he encontrado más que eso, el amor"
+      </div>
+      <p class="person"><img src="{% static 'img/guy1.jpg' %}" class="person-pic">
+        Manuel, 32 años
+      </p>
+    </div>
+  <div class="testimonio">
+    <div class="textbox">
+      "Las típicas aplicaciones no satisfacían mis necesidades. MoneyBuddy es la única aplicación gratis que cumple con lo que ofrece, y además se puede usar offline"
+    </div>
+    <p class="person"><img src="{% static 'img/guy2.jpg' %}" class="person-pic">Felipe, 23 años</p>
+  </div>
+</div>
+-->
+  <br>
+  <footer>
+    <div class="seccion piedepagina">
+    Desarrollo web 2019
+  </div>
+  <div class="seccion">
+    ¿Dudas o sugerencias? Hablemos<br>
+    <b>hola@hostaldonaclarita.cl</b>
+  </div>
+  </footer>
+  <script src="{% static 'js/material-photo-gallery-master/dist/js/material-photo-gallery.js' %}"></script>
+  <script>
+  var elem = document.querySelector('.m-p-g')
+  var gallery = new MaterialPhotoGallery(elem)
+    </script>
+</body>
+
+</html>

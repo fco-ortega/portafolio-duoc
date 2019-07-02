@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Habitaciones</h1>
+
+<a href="{% url "habitacion_create" %}">New</a>
+
+<table>
+<thead>
+<tr>
+<th>Id habitacion</th>
+<th>Tipo cama</th>
+<th>Accesorios</th>
+<th>Dirección</th>
+<th>Precio</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+{% for habitacion in object_list %}
+<tr>
+<td>{{ habitacion.id_habitacion }}</td>
+<td>{{ habitacion.tipo_cama }}</td>
+<td>{{ habitacion.accesorios }}</td>
+<td>{{ habitacion.precio }}</td>
+<td>
+<a  href="{% url "habitacion_update"  habitacion.id_habitacion  %}">edit</a>
+<a  href="{% url "habitacion_delete"  habitacion.id_habitacion  %}">delete</a>
+</td>
+</tr>
+
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

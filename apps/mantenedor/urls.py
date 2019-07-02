@@ -41,5 +41,13 @@ urlpatterns = [
     path('reporte-create/', views.ReporteCreate.as_view(), name='reporte_create'),
     path('reporte-update/<int:pk>', views.ReporteUpdate.as_view(), name='reporte_update'),
     path('reporte-delete/<int:pk>', views.ReporteDelete.as_view(), name='reporte_delete'),
+    path('huespedes/', views.HuespedList.as_view(), name='huesped_list'),
+    path('huesped-create/', views.HuespedCreate.as_view(), name='huesped_create'),
+    path('huesped-update/<str:pk>', views.HuespedUpdate.as_view(), name='huesped_update'),
+    path('huesped-delete/<str:pk>', views.HuespedDelete.as_view(), name='huesped_delete'),
+    path('habitaciones/', views.HabitacionList.as_view(), name='habitacion_list'),
+    path('habitacion-create/', views.HabitacionCreate.as_view(), name='habitacion_create'),
+    path('habitacion-update/<int:pk>', views.HabitacionUpdate.as_view(), name='habitacion_update'),
+    path('habitacion-delete/<int:pk>', views.HabitacionDelete.as_view(), name='habitacion_delete'),
     path('manual_ayuda', views.manual_ayuda, name='manual_ayuda'),
 ]
