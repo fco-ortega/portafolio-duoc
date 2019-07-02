@@ -40,7 +40,8 @@
         <a href="{% url 'oc_list' %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-receipt"></i> Órdenes de compra</a>
         {% endif %}
         {% if request.user|has_group:"Empleados" %}
-
+        <a href="{% url 'orden_pedido_list' %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-clipboard-list"></i> Órdenes de pedido</a>
+        <a href="{% url 'producto_list' %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-apple-alt"></i> Productos</a>
         {% endif %}
         {% if request.user|has_group:"Proveedores" %}
         <a href="{% url 'orden_pedido_list' %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-clipboard-list"></i> Órdenes de pedido</a>

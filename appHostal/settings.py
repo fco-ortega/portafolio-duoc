@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'appHostal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'localhost:1521/orcl',
+        'NAME': 'localhost:1521/orclpdb',
         'USER': 'django',
         'PASSWORD': 'django',
         'HOST': '',

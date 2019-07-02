@@ -52,9 +52,16 @@ class Empleado(models.Model):
     id_usuario = models.OneToOneField(User, on_delete=models.CASCADE)
 
 class Orden_pedido(models.Model):
+    ESTADO = (
+        ('A', 'Abierta'),
+        ('E', 'Enviada'),
+        ('R', 'Recibida'),
+    )
     id_orden_pedido = models.IntegerField(primary_key=True)
     fecha_emision = models.DateField()
+    fecha_despacho = models.DateField()
     fecha_recepcion = models.DateField()
+    estado = models.CharField(max_length=1, choices=ESTADO, default='A')
     rut_proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
 
 class Producto(models.Model):

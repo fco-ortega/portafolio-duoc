@@ -40,7 +40,7 @@
           <td>{{ oc.nombre_orden }}</td>
           <td>{{ oc.fecha }}</td>
           <td>{{ oc.fecha_entrega }}</td>
-          <td>{{ oc.estado }}</td>
+          <td>{{ oc.get_estado_display }}</td>
           <td>{{ oc.rut_cliente }}</td>
           <td>
             <a href="{% url "oc_update"  oc.numero_orden  %}" data-toggle="tooltip" data-placement="top" title="Modificar"><i class="fa fa-pencil-alt fa-lg"></i></a>
@@ -89,11 +89,11 @@
           <td>{{ oc.nombre_orden }}</td>
           <td>{{ oc.fecha }}</td>
           <td>{{ oc.fecha_entrega }}</td>
-          <td>{{ oc.estado }}</td>
+          <td>{{ oc.get_estado_display }}</td>
           <td>{{ oc.rut_cliente }}</td>
           <td>
             <a href="{% url "oc_update"  oc.numero_orden  %}" data-toggle="tooltip" data-placement="top" title="Modificar"><i class="fa fa-pencil-alt fa-lg"></i></a>
-            <a href="{% url "oc_delete"  oc.numero_orden  %}" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fa fa-trash-alt fa-lg"></i></a>
+            <!--<a href="{% url "oc_delete"  oc.numero_orden  %}" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fa fa-trash-alt fa-lg"></i></a>-->
           </td>
         </tr>
         {% endif %}

@@ -233,7 +233,7 @@ class Orden_pedidoList(LoginRequiredMixin, ListView):
 class Orden_pedidoCreate(LoginRequiredMixin, CreateView):
     model = Orden_pedido
     template_name = 'orden_pedidos/orden_pedido_form.html'
-    fields = ('id_orden_pedido', 'fecha_emision', 'fecha_recepcion', 'rut_proveedor')
+    fields = ('id_orden_pedido', 'fecha_emision', 'fecha_despacho', 'fecha_recepcion', 'estado', 'rut_proveedor')
     success_url = reverse_lazy('orden_pedido_list')
     login_url = '/'
     redirect_field_name = 'redirect_to'
@@ -241,7 +241,7 @@ class Orden_pedidoCreate(LoginRequiredMixin, CreateView):
 class Orden_pedidoUpdate(LoginRequiredMixin, UpdateView):
     model = Orden_pedido
     template_name = 'orden_pedidos/orden_pedido_form.html'
-    fields = ('id_orden_pedido', 'fecha_emision', 'fecha_recepcion', 'rut_proveedor')
+    fields = ('id_orden_pedido', 'fecha_emision', 'fecha_despacho', 'fecha_recepcion', 'estado', 'rut_proveedor')
     success_url = reverse_lazy('orden_pedido_list')
     login_url = '/'
     redirect_field_name = 'redirect_to'
