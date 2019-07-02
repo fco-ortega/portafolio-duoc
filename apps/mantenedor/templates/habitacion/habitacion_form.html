@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 
-<h1>Habitacion Update</h1>
+<h1>Formulario Habitacion </h1>
 
 <form  method="post">
 {% csrf_token %}
-{{ form.as_p }}
-<input  type="submit"  value="Submit"  />
+<div class="form-group col-md-6">
+{{ form|crispy }}
+<button type="submit" value="Submit" class="btn btn-primary">Ingresar</button>
+</div>
 </form>
 {% endblock %}

@@ -299,13 +299,13 @@ class HuespedList(ListView):
 class HuespedCreate(CreateView):
     model = Huesped
     template_name = 'huesped/huesped_form.html'
-    fields = ('run_huesped', 'nombres', 'apellidos', 'genero', 'telefono_movil')
+    fields = ('run_huesped', 'nombres', 'apellidos', 'genero', 'telefono_movil', 'id_habitacion', 'rut_cliente')
     success_url = reverse_lazy('huesped_list')
 
 class HuespedUpdate(UpdateView):
     model = Huesped
     template_name = 'huesped/huesped_form.html'
-    fields = ('run_huesped', 'nombres', 'apellidos', 'genero', 'telefono_movil')
+    fields = ('run_huesped', 'nombres', 'apellidos', 'genero', 'telefono_movil', 'id_habitacion', 'rut_cliente')
     success_url = reverse_lazy('huesped_list')
 
 class HuespedDelete(DeleteView):
@@ -322,13 +322,13 @@ class HabitacionList(ListView):
 class HabitacionCreate(CreateView):
     model = Habitacion
     template_name = 'habitacion/habitacion_form.html'
-    fields = ('id_habitacion', 'tipo_cama', 'accesorios', 'precio')
+    fields = ('id_habitacion', 'tipo_cama', 'accesorios', 'precio', 'id_estado')
     success_url = reverse_lazy('habitacion_list')
 
 class HabitacionUpdate(UpdateView):
     model = Habitacion
     template_name = 'habitacion/habitacion_form.html'
-    fields = ('id_habitacion', 'tipo_cama', 'accesorios', 'precio')
+    fields = ('id_habitacion', 'tipo_cama', 'accesorios', 'precio', 'id_estado')
     success_url = reverse_lazy('habitacion_list')
 
 class HabitacionDelete(DeleteView):

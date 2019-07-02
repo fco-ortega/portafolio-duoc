@@ -1,19 +1,32 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 
 <h1>Habitaciones</h1>
-
-<a href="{% url "habitacion_create" %}">New</a>
-
-<table>
-<thead>
+<div class="row">
+  <div class="col-sm-8">
+<a href="{% url "habitacion_create" %}">
+<button type="button" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Nueva habitación</button>
+</a>
+    <a href="{% url "manual_ayuda" %}#manual-2">
+      <button type="button" class="btn btn-primary">
+        <i class="fa fa-question-circle"></i> ¿Qué es esto?</button>
+    </a>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-11">
+    <table class="table">
+      <thead class="thead-dark">
 <tr>
-<th>Id habitacion</th>
-<th>Tipo cama</th>
-<th>Accesorios</th>
-<th>Dirección</th>
-<th>Precio</th>
-<th>Actions</th>
+<th scope="col">Id habitacion</th>
+<th scope="col">Tipo cama</th>
+<th scope="col">Accesorios</th>
+<th scope="col">Precio</th>
+<th scope="col">Estado</th>
+<th scope="col">Acciones</th>
 </tr>
 </thead>
 <tbody>
@@ -23,13 +36,16 @@
 <td>{{ habitacion.tipo_cama }}</td>
 <td>{{ habitacion.accesorios }}</td>
 <td>{{ habitacion.precio }}</td>
+<td>{{ habitacion.id_estado.descripcion }}</td>
 <td>
-<a  href="{% url "habitacion_update"  habitacion.id_habitacion  %}">edit</a>
-<a  href="{% url "habitacion_delete"  habitacion.id_habitacion  %}">delete</a>
+<a  href="{% url "habitacion_update"  habitacion.id_habitacion  %}" data-toggle="tooltip" data-placement="top" title="Modificar"><i class="fa fa-pencil-alt fa-lg"></i></a>
+<a  href="{% url "habitacion_delete"  habitacion.id_habitacion  %}" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fa fa-trash-alt fa-lg"></i></a>
 </td>
 </tr>
 
 {% endfor %}
 </tbody>
 </table>
+  </div>
+</div>
 {% endblock %}

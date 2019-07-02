@@ -78,6 +78,8 @@ class Producto(models.Model):
 class Estado(models.Model):
     id_estado = models.IntegerField(primary_key=True)
     descripcion = models.CharField(max_length=30)
+    def __str__(self):
+        return self.descripcion
 
 class Habitacion(models.Model):
     id_habitacion = models.IntegerField(primary_key=True)
