@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h1>Plato Formulario</h1>
+
+<form  method="post">
+{% csrf_token %}
+<div class="form-group col-md-6">
+{{ form|crispy }}
+<button type="submit" value="Submit" class="btn btn-primary">Ingresar</button>
+</div>
+</form>
+{% endblock %}

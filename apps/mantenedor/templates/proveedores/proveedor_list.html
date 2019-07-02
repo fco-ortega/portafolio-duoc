@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h1>Proveedores</h1>
+<div class="row">
+  <div class="col-sm-8">
+    <a href="{% url "proveedor_create" %}">
+        <button type="button" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Nuevo proveedor</button>
+    </a>
+    <a href="{% url "manual_ayuda" %}#manual-4">
+      <button type="button" class="btn btn-primary">
+        <i class="fa fa-question-circle"></i> ¿Qué es esto?</button>
+    </a>
+  </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-11">
+      <table class="table">
+        <thead class="thead-dark">
+<tr>
+<th scope="col">Rut</th>
+<th scope="col">Nombre</th>
+<th scope="col">Giro</th>
+<th scope="col">Dirección</th>
+<th scope="col">Número</th>
+<th scope="col">Usuario</th>
+<th scope="col">Acciones</th>
+</tr>
+</thead>
+<tbody>
+{% for proveedor in object_list %}
+<tr>
+<td>{{ proveedor.rut_proveedor }}</td>
+<td>{{ proveedor.nombre }}</td>
+<td>{{ proveedor.giro }}</td>
+<td>{{ proveedor.direccion }}</td>
+<td>{{ proveedor.numero }}</td>
+<td>{{ proveedor.id_usuario }}</td>
+<td>
+<a  href="{% url "proveedor_update"  proveedor.rut_proveedor  %}" data-toggle="tooltip" data-placement="top" title="Modificar"><i class="fa fa-pencil-alt fa-lg"></i></a>
+<a  href="{% url "proveedor_delete"  proveedor.rut_proveedor  %}" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fa fa-trash-alt fa-lg"></i></a>
+</td>
+</tr>
+
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+{% endblock %}

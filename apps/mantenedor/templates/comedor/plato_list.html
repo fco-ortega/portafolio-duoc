@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h1>Platos</h1>
+<div class="row">
+    <div class="col-sm-5">
+<a href="{% url "plato_create" %}">
+    <button type="button" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Nuevo plato</button>
+</a>
+<a href="{% url "manual_ayuda" %}#manual-5">
+  <button type="button" class="btn btn-primary">
+    <i class="fa fa-question-circle"></i> ¿Qué es esto?</button>
+</a>
+</div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-11">
+      <table class="table">
+        <thead class="thead-dark">
+<tr>
+<th scope="col">Id</th>
+<th scope="col">Nombre</th>
+<th scope="col">Precio</th>
+<th scope="col">Tipo</th>
+<th scope="col">Acciones</th>
+</tr>
+</thead>
+<tbody>
+{% for plato in object_list %}
+<tr>
+<td>{{ plato.id}}</td>
+<td>{{ plato.nombre }}</td>
+<td>{{ plato.precio }}</td>
+<td>{{ plato.tipo }}</td>
+<td>
+<a  href="{% url "plato_update"  plato.id  %}" data-toggle="tooltip" data-placement="top" title="Modificar"><i class="fa fa-pencil-alt fa-lg"></i></a>
+<a  href="{% url "plato_delete"  plato.id  %}" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fa fa-trash-alt fa-lg"></i></a>
+</td>
+</tr>
+
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+{% endblock %}

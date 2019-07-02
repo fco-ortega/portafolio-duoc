@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h1>Reportes</h1>
+<div class="row">
+  <div class="col-sm-8">
+    <a href="{% url "reporte_create" %}">
+        <button type="button" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Nuevo reporte</button>
+    </a>
+    <a href="{% url "manual_ayuda" %}#manual-4">
+      <button type="button" class="btn btn-primary">
+        <i class="fa fa-question-circle"></i> ¿Qué es esto?</button>
+    </a>
+  </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-11">
+      <table class="table">
+        <thead class="thead-dark">
+<tr>
+<th scope="col">Id</th>
+<th scope="col">Nombre</th>
+<th scope="col">Fecha</th>
+<th scope="col">Gestión</th>
+</tr>
+</thead>
+<tbody>
+{% for reporte in object_list %}
+<tr>
+<td>{{ reporte.id_reporte }}</td>
+<td>{{ reporte.nombre }}</td>
+<td>{{ reporte.fecha }}</td>
+<td>
+<a  href="{% url "reporte_update"  reporte.id_reporte  %}" data-toggle="tooltip" data-placement="top" title="Modificar"><i class="fa fa-pencil-alt fa-lg"></i></a>
+<a  href="{% url "reporte_delete"  reporte.id_reporte  %}" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fa fa-trash-alt fa-lg"></i></a>
+<a  href="#" data-toggle="tooltip" data-placement="top" title="Imprimir"><i class="fa fa-print fa-lg" onclick="imprimir_pdf({{ reporte.id_reporte }})"></i></a>
+<a  href="#" data-toggle="tooltip" data-placement="top" title="Exportar"><i class="fa fa-file-download fa-lg" onclick="descargar_pdf({{ reporte.id_reporte }})"></i></a>
+<a href="" data-toggle="modal" data-target="#modal_{{ reporte.id_reporte }}" data-placement="top" title="Ver"><i class="fa fa-eye fa-lg"></i></a>
+<div class="modal fade" id="modal_{{ reporte.id_reporte }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="view_reporte_{{ reporte.id_reporte }}" class="modal-body">
+        {{ reporte.id_reporte }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</td>
+</tr>
+
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+{% endblock %}
