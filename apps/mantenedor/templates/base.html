@@ -27,11 +27,13 @@
         <a href="{% url 'cliente_list' %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-handshake"></i> Clientes</a>
         <a href="{% url 'proveedor_list' %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-truck"></i> Proveedores</a>
         <a href="{% url 'plato_list' %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-utensils"></i> Comedor</a>
+        <a href="{% url 'habitacion_list' %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-bed"></i> Habitación</a>
+        <a href="{% url 'huesped_list' %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-suitcase-rolling"></i> Huésped</a>
         <a href="{% url 'oc_list' %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-receipt"></i> Órdenes de compra</a>
         <a href="{% url 'empleado_list' %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-briefcase"></i> Empleado</a>
         <a href="{% url 'orden_pedido_list' %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-clipboard-list"></i> Órdenes de pedido</a>
         <a href="{% url 'producto_list' %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-apple-alt"></i> Productos</a>
-        <a href="{% url 'reporte_list' %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-contract"></i> Reportes</a>
+        <a href="{% url 'reporte_list' %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-file-contract"></i> Reportes</a>
         <a href="{% url 'manual_ayuda' %}" class="list-group-item list-group-item-action bg-light"><i class="fas fa-question-circle"></i> Manual de ayuda</a>
         <!--<a href="#" class="list-group-item list-group-item-action bg-light"><i class="fas fa-address-card"></i> Sobre nosotros</a>
         <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fas fa-phone"></i> Contacto</a>-->
@@ -126,33 +128,50 @@
   $('[data-toggle="tooltip"]').tooltip()
 });
 
-function generar_pdf(reporte_id) {
+function generar_pdf(titulo, fecha, suma) {
+  var new_fecha = new Date(fecha);
+  var day = new_fecha.getDate();
+  var month_name = get_month_name(new_fecha.getMonth());
+  var year = new_fecha.getFullYear();
+
+  if (suma > 0) {
+    var balance = 'POSITIVO';
+    var conclusion = 'los clientes se encuentran felices con el servicio y se debe continuar mejorando el servicio para obtener aún mejores resultados';
+  } else if (suma == 0) {
+    var balance = 'CERO';
+    var conclusion = 'el negocio no ha producido ventas ni pérdidas, por lo que se deben evaluar posibles cambios en la calidad del servicio para poder aumentar las ganancias';
+  } else {
+    var balance = 'NEGATIVO';
+    var conclusion = 'el negocio ha sufrido una caída en las ventas, por lo que se deben evaluar mejoras URGENTES en la calidad del servicio e incluso considerar un cambio de personal';
+  }
   var docDefinition = {
     info: {
-    title: 'Reporte',
-    subject: 'Reporte NOMBREREPORTE'
+    title: 'Reporte '+titulo,
+    subject: 'Reporte '+titulo
     },
     content: [
 		{
-			text: 'Reporte TITULODELREPORTE',
+			text: 'Reporte ' + titulo + '\n',
 			style: 'header'
 		},
 		{
-			text: 'Fecha del reporte',
+			text: day + ' de ' + month_name + ' del ' + year + '\n',
 			style: 'subheader'
 		},
-		'El presente documento tiene por objetivo dar a conocer las ventas recaudadas de la empresa Hostal Doña Clarita. No presenta ninguna validez legal, sólo representa un apoyo para evaluar el estado actual y progresivo de la empresa y un indicativo de los pasos a seguir para mejorar el servicio.',
+		'El presente documento tiene por objetivo dar a conocer las ventas recaudadas de la empresa Hostal Doña Clarita. No presenta ninguna validez legal, sólo representa un apoyo para evaluar el estado actual y progresivo de la empresa y un indicativo de los pasos a seguir para mejorar el servicio. \n\n',
 
-		'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Confectum ponit legam, perferendis nomine miserum, animi. Moveat nesciunt triari naturam posset, eveniunt specie deorsus efficiat sermone instituendarum fuisse veniat, eademque mutat debeo. Delectet plerique protervi diogenem dixerit logikh levius probabo adipiscuntur afficitur, factis magistra inprobitatem aliquo andriam obiecta, religionis, imitarentur studiis quam, clamat intereant vulgo admonitionem operis iudex stabilitas vacillare scriptum nixam, reperiri inveniri maestitiam istius eaque dissentias idcirco gravis, refert suscipiet recte sapiens oportet ipsam terentianus, perpauca sedatio aliena video.\n\n',
-		{
-			text: 'Subheader 2 - using subheader style',
+    {
+			text: 'Evaluación mensual\n',
 			style: 'subheader'
 		},
-		'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Confectum ponit legam, perferendis nomine miserum, animi. Moveat nesciunt triari naturam posset, eveniunt specie deorsus efficiat sermone instituendarum fuisse veniat, eademque mutat debeo. Delectet plerique protervi diogenem dixerit logikh levius probabo adipiscuntur afficitur, factis magistra inprobitatem aliquo andriam obiecta, religionis, imitarentur studiis quam, clamat intereant vulgo admonitionem operis iudex stabilitas vacillare scriptum nixam, reperiri inveniri maestitiam istius eaque dissentias idcirco gravis, refert suscipiet recte sapiens oportet ipsam terentianus, perpauca sedatio aliena video.',
-		'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Confectum ponit legam, perferendis nomine miserum, animi. Moveat nesciunt triari naturam posset, eveniunt specie deorsus efficiat sermone instituendarum fuisse veniat, eademque mutat debeo. Delectet plerique protervi diogenem dixerit logikh levius probabo adipiscuntur afficitur, factis magistra inprobitatem aliquo andriam obiecta, religionis, imitarentur studiis quam, clamat intereant vulgo admonitionem operis iudex stabilitas vacillare scriptum nixam, reperiri inveniri maestitiam istius eaque dissentias idcirco gravis, refert suscipiet recte sapiens oportet ipsam terentianus, perpauca sedatio aliena video.\n\n',
+		'Para el mes de ' + month_name + ' se han recaudado $' + suma + ', de cuya cifra se desprende el siguiente análisis:\n\n',
+    {
+			text: 'Se observa un balance ' + balance + ' en las ventas, y por consiguiente ' + conclusion + '\n\n',
+			style: 'important'
+		},
 		{
-			text: 'Hostal Doña Clarita. Santiago, MES ANIO',
-			style: ['quote', 'small']
+			text: 'Hostal Doña Clarita. Santiago, ' + month_name + ' ' + year,
+			style: 'small'
 		}
 	],
 	styles: {
@@ -161,14 +180,14 @@ function generar_pdf(reporte_id) {
 			bold: true
 		},
 		subheader: {
-			fontSize: 15,
+			fontSize: 16,
 			bold: true
 		},
-		quote: {
-			italics: true
+    important: {
+			fontSize: 18
 		},
 		small: {
-			fontSize: 8
+			fontSize: 10
 		}
 	}
   };
@@ -177,16 +196,71 @@ function generar_pdf(reporte_id) {
   return pdf_file;
 }
 
-function descargar_pdf(reporte_data) {
-  var file = generar_pdf(reporte_data);
+function descargar_pdf(titulo, fecha, suma) {
+  var file = generar_pdf(titulo, fecha, suma);
   file.download();
 }
 
-function imprimir_pdf(reporte_data) {
-  var file = generar_pdf(reporte_data);
+function imprimir_pdf(titulo, fecha, suma) {
+  var file = generar_pdf(titulo, fecha, suma);
   file.print();
 }
 
+function visualizar_pdf(id_reporte, titulo, fecha, suma) {
+  var file = generar_pdf(titulo, fecha, suma);
+  file.getDataUrl((dataUrl) => {
+      const targetElement = document.querySelector('#view_reporte_'+id_reporte);
+      const iframe = document.createElement('iframe');
+      $(iframe).css('width', 500);
+      $(iframe).css('height', 700);
+      iframe.src = dataUrl;
+      targetElement.appendChild(iframe);
+  });
+}
+
+function get_month_name(month_number) {
+  var mes;
+  switch (month_number) {
+    case 0:
+      mes = 'Enero';
+      break;
+    case 1:
+      mes = 'Febrero';
+      break;
+    case 2:
+      mes = 'Marzo';
+      break;
+    case 3:
+      mes = 'Abril';
+      break;
+    case 4:
+      mes = 'Mayo';
+      break;
+    case 5:
+      mes = 'Junio';
+      break;
+    case 6:
+      mes = 'Julio';
+      break;
+    case 7:
+      mes = 'Agosto';
+      break;
+    case 8:
+      mes = 'Septiembre';
+      break;
+    case 9:
+      mes = 'Octubre';
+      break;
+    case 10:
+      mes = 'Noviembre';
+      break;
+    case 11:
+      mes = 'Diciembre';
+      break;
+  }
+
+  return mes;
+}
   </script>
 </body>
 </html>

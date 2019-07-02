@@ -32,28 +32,26 @@
 <tr>
 <td>{{ reporte.id_reporte }}</td>
 <td>{{ reporte.nombre }}</td>
-<td>{{ reporte.fecha }}</td>
+<td>{{ reporte.fecha }} </td>
 <td>
 <a  href="{% url "reporte_update"  reporte.id_reporte  %}" data-toggle="tooltip" data-placement="top" title="Modificar"><i class="fa fa-pencil-alt fa-lg"></i></a>
 <a  href="{% url "reporte_delete"  reporte.id_reporte  %}" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fa fa-trash-alt fa-lg"></i></a>
-<a  href="#" data-toggle="tooltip" data-placement="top" title="Imprimir"><i class="fa fa-print fa-lg" onclick="imprimir_pdf({{ reporte.id_reporte }})"></i></a>
-<a  href="#" data-toggle="tooltip" data-placement="top" title="Exportar"><i class="fa fa-file-download fa-lg" onclick="descargar_pdf({{ reporte.id_reporte }})"></i></a>
-<a href="" data-toggle="modal" data-target="#modal_{{ reporte.id_reporte }}" data-placement="top" title="Ver"><i class="fa fa-eye fa-lg"></i></a>
+<a  href="#" data-toggle="tooltip" data-placement="top" title="Imprimir"><i class="fa fa-print fa-lg" onclick="imprimir_pdf('{{ reporte.nombre }}', '{{ reporte.fecha_format }}', {{ reporte.suma_mensual }})"></i></a>
+<a  href="#" data-toggle="tooltip" data-placement="top" title="Exportar"><i class="fa fa-file-download fa-lg" onclick="descargar_pdf('{{ reporte.nombre }}', '{{ reporte.fecha_format }}', {{ reporte.suma_mensual }})"></i></a>
+<a href="" data-toggle="modal" data-target="#modal_{{ reporte.id_reporte }}" data-placement="top" title="Ver" onclick="visualizar_pdf({{ reporte.id_reporte }}, '{{ reporte.nombre }}', '{{ reporte.fecha_format }}', {{ reporte.suma_mensual }})"><i class="fa fa-eye fa-lg"></i></a>
 <div class="modal fade" id="modal_{{ reporte.id_reporte }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{ reporte.nombre }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div id="view_reporte_{{ reporte.id_reporte }}" class="modal-body">
-        {{ reporte.id_reporte }}
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>

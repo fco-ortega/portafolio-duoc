@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Huespedes</h1>
+
+<a href="{% url "huesped_create" %}">New</a>
+
+<table>
+<thead>
+<tr>
+<th>Run</th>
+<th>Nombres</th>
+<th>Apellidos</th>
+<th>Genero</th>
+<th>Telefono movil</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+{% for huesped in object_list %}
+<tr>
+<td>{{ huesped.run_huesped }}</td>
+<td>{{ huesped.nombres }}</td>
+<td>{{ huesped.apellidos }}</td>
+<td>{{ huesped.genero }}</td>
+<td>{{ huesped.telefono_movil }}</td>
+<td>
+<a  href="{% url "huesped_update"  huesped.run_huesped  %}">edit</a>
+<a  href="{% url "huesped_delete"  huesped.rut_huesped  %}">delete</a>
+</td>
+</tr>
+
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

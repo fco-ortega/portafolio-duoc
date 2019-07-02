@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
-from .models import Cliente, Proveedor, Plato, Orden_compra, Empleado, Orden_pedido, Producto, Reporte
+from .models import Cliente, Proveedor, Plato, Orden_compra, Empleado, Orden_pedido, Producto, Reporte, Huesped, Habitacion
 from .forms import UsuarioCreationForm, UsuarioChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -161,6 +161,14 @@ class OrdenCompraDelete(LoginRequiredMixin, DeleteView):
     login_url = '/'
     redirect_field_name = 'redirect_to'
 
+class OrdenCompraCancel(LoginRequiredMixin, UpdateView):
+    model = Orden_compra
+    template_name = 'oc/oc_form.html'
+    fields = ('estado',)
+    success_url = reverse_lazy('oc_list')
+    login_url = '/'
+    redirect_field_name = 'redirect_to'
+
 # Producto
 
 class ProductoList(LoginRequiredMixin, ListView):
@@ -281,6 +289,53 @@ class ReporteDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('reporte_list')
     login_url = '/'
     redirect_field_name = 'redirect_to'
+
+#Huesped
+
+class HuespedList(ListView):
+    model = Huesped
+    template_name = 'huesped/huesped_list.html'
+
+class HuespedCreate(CreateView):
+    model = Huesped
+    template_name = 'huesped/huesped_form.html'
+    fields = ('run_huesped', 'nombres', 'apellidos', 'genero', 'telefono_movil')
+    success_url = reverse_lazy('huesped_list')
+
+class HuespedUpdate(UpdateView):
+    model = Huesped
+    template_name = 'huesped/huesped_form.html'
+    fields = ('run_huesped', 'nombres', 'apellidos', 'genero', 'telefono_movil')
+    success_url = reverse_lazy('huesped_list')
+
+class HuespedDelete(DeleteView):
+    model = Huesped
+    template_name = 'huesped/huesped_confirm_delete.html'
+    success_url = reverse_lazy('huesped_list')
+
+#Habitacion
+
+class HabitacionList(ListView):
+    model = Habitacion
+    template_name = 'habitacion/habitacion_list.html'
+
+class HabitacionCreate(CreateView):
+    model = Habitacion
+    template_name = 'habitacion/habitacion_form.html'
+    fields = ('id_habitacion', 'tipo_cama', 'accesorios', 'precio')
+    success_url = reverse_lazy('habitacion_list')
+
+class HabitacionUpdate(UpdateView):
+    model = Habitacion
+    template_name = 'habitacion/habitacion_form.html'
+    fields = ('id_habitacion', 'tipo_cama', 'accesorios', 'precio')
+    success_url = reverse_lazy('habitacion_list')
+
+class HabitacionDelete(DeleteView):
+    model = Habitacion
+    template_name = 'habitacion/habitacion_confirm_delete.html'
+    success_url = reverse_lazy('habitacion_list')
+
 
 # Manual de ayuda
 def manual_ayuda(request):

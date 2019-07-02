@@ -96,13 +96,33 @@ class Huesped(models.Model):
     id_habitacion = models.ForeignKey(Habitacion, on_delete=models.CASCADE)
     rut_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 
+
 class Reporte(models.Model):
     id_reporte = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=30)
-    fecha = models.DateTimeField(default=datetime.datetime.now())
-"""
-    def suma_mensual(self, mes, anio):
-        dates = Orden_compra.objects.filter(fecha_entrega__month=mes, fecha_entrega__year=anio)
+    fecha = models.DateField(default=datetime.date.today())
+
+    def fecha_format(self):
+        #OJO, LO ENTREGA MES-DIA-ANIO, GRINGO STYLE
+        return str(self.fecha.month) + '/' + str(self.fecha.day) + '/' + str(self.fecha.year)
+
+    def suma_mensual(self):
+        mes = self.fecha.month
+        anio = self.fecha.year
+        #dates = Orden_compra.objects.get(numero_orden=2).fecha_entrega.month
+        oc_generadas = Orden_compra.objects.filter(fecha_entrega__month=mes, fecha_entrega__year=anio)
+        clientes = []
+        suma = 0
+        if oc_generadas.count() > 0:
+            for oc in oc_generadas:
+                for cl in Cliente.objects.all():
+                    if oc.rut_cliente.rut_cliente == cl.rut_cliente:
+                        clientes.append(cl.rut_cliente)
+
+            if Huesped.objects.count() > 0 and len(clientes) > 0:
+                for h in Huesped.objects.all():
+                    for c in clientes:
+                        if h.rut_cliente == c:
+                            suma = suma + 72015
 
         return suma
-"""
